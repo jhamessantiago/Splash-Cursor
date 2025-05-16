@@ -89,7 +89,7 @@ function supportRenderTextureFormat(e, r, t, n) {
     let i = e.createTexture();
     e.bindTexture(e.TEXTURE_2D, i), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_MIN_FILTER, e.NEAREST), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_MAG_FILTER, e.NEAREST), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_WRAP_S, e.CLAMP_TO_EDGE), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_WRAP_T, e.CLAMP_TO_EDGE), e.texImage2D(e.TEXTURE_2D, 0, r, 4, 4, 0, t, n, null);
     let o = e.createFramebuffer();
-    return e.bindFramebuffer(e.FRAMEBUFFER, o), e.framebufferTexture2D(e.FRAMEBUFFER, e.COLOR_ATTACHMENT0, e.TEXTURE_2D, i, 0), e.checkFramebufferStatus(e.FRAMEBUFFER) == e.FRAMEBUFFER_COMPLETE
+    return e.bindFramebuffer(e.FRAMEBUFFER, o), e.framebufferTexture2D(e.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, i, 0), gl.checkFramebufferStatus(gl.FRAMEBUFFER) == gl.FRAMEBUFFER_COMPLETE
 }
 
 function isMobile() {
@@ -490,12 +490,24 @@ function correctDeltaY(e) {
 }
 
 function generateColor() {
-    let e = HSVtoRGB(.5, .96, .08);
-    return e = {
-        r: 197 / 255,
-        g: 252 / 255,
-        b: 252 / 255
-    }, e.r *= .15, e.g *= .15, e.b *= .15, e
+    // This function generates a color for the splashes.
+    // The initial HSV to RGB conversion is currently being overwritten.
+
+    // To change the color, modify the RGB values below to represent teal.
+    // Values are between 0 and 1.
+    let color = {
+        r: 0.0,     // Red component (0 to 1)
+        g: 128 / 255, // Green component (0 to 1) - approx 0.5
+        b: 128 / 255  // Blue component (0 to 1) - approx 0.5
+    };
+
+    // The color is then multiplied by 0.15, making it darker.
+    // You can adjust this multiplier to change the intensity.
+    color.r *= 0.15;
+    color.g *= 0.15;
+    color.b *= 0.15;
+
+    return color;
 }
 
 function HSVtoRGB(e, r, t) {
